@@ -9,7 +9,7 @@ app.use(cors({ origin: "*" }));
 app.use(express.urlencoded({ extended: true }));
 
 
-const db = process.env.MONGODB_URI;
+const db = "mongodb+srv://anvesh:5jcoDMx2xyRrU2qV%21%40@cluster0.0c4egmk.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 const port = process.env.PORT || 8889;
 
 
