@@ -61,6 +61,42 @@ router.get('/getLoansByUser', async (req, res) => {
 });
 
 
+router.post('/register', async (req, res) => {
+  try {
+    const { name, gmail, password } = req.body;
+
+    const existingUser = await Admin.findOne({ gmail });
+
+    if (existingUser) {
+      return res.status(400).json({
+        success: false,
+        message: 'User with this email already exists',
+      });
+    }
+
+    const newUser = new Admin({
+      name,
+      gmail,
+      password,
+    });
+
+    await newUser.save();
+
+    return res.status(201).json({
+      success: true,
+      message: 'User registered successfully',
+      data: newUser,
+    });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({
+      success: false,
+      message: 'Server Error',
+      error: error.message,
+    });
+  }
+});
+
 
 router.put("/updateLoanStatus/:id", async (req, res) => {
   const loanId = req.params.id;
