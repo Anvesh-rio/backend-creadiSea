@@ -19,11 +19,12 @@ const adminRoutes = require('./routes/admin');
 app.use('/api/user', userRoutes);
 app.use('/api/admin', adminRoutes);
 
-
-
 mongoose
   .set("strictQuery", true)
-  .connect(db)
+  .connect(db, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
   .then(() => console.log("MongoDB successfully connected"))
   .catch((err) => console.log("Error connecting to MongoDB", err));
 
